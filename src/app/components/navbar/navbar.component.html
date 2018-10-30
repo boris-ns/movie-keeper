@@ -1,6 +1,6 @@
 <div class="navbar">
-  <a href="">Movie Keeper</a>
+  <a href="" class="title-link">Movie Keeper</a>
 
-  <input *ngIf="!this.authService.isUserLoggedIn()" type="button" value="Login" (click)="onClickBtnLogin()" />
-  <input *ngIf="this.authService.isUserLoggedIn()" type="button" value="Sign out" (click)="onClickBtnSignOut()" />
+  <input *ngIf="!this.authService.isUserLoggedIn()" class="button" type="button" value="Login with Google" (click)="onClickBtnLogin()" />
+  <input *ngIf="this.authService.isUserLoggedIn()" class="button" type="button" value="Sign out" (click)="onClickBtnSignOut()" />
 </div>

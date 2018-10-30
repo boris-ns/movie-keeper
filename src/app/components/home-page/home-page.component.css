@@ -1,0 +1,21 @@
+.info-text {
+    text-align: center;
+}
+
+.info-text h1, p {
+    font-family: cursive;
+}
+
+.button {
+    border: none;
+    font-size: 1em;
+    font-family: cursive;
+    background-color: #dddddd;
+    border-radius: 10%;
+    padding: 0.5em 1em;
+}
+
+.button:hover {
+    cursor: pointer;
+    background-color: #0085d3;
+}
