@@ -8,3 +8,7 @@
     <input class="button" type="button" value="Login" (click)="onClickBtnLogin()" />
   </div>
 </div>
+
+<div *ngIf="authService.isUserLoggedIn()">
+  <app-watchlist></app-watchlist>
+</div>
