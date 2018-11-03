@@ -13,10 +13,12 @@ export class DataService {
   private apiKey: string;
 
   private userId: string;
+  private userMovies: Array<any>;
 
   constructor(private http: HttpClient, private firebaseDb: AngularFireDatabase) { 
     this.endpoint = 'http://www.omdbapi.com/';
     this.apiKey = environment.omdbApiKey;
+    this.userMovies = new Array<any>();
   }
 
   getMovie(movieId: string) {
@@ -39,6 +41,12 @@ export class DataService {
       } else {
         this.userId = Object.keys(snapshot.val())[0];
       }
+      
+      this.userMovies = new Array();
+      const movies = snapshot.val()[this.userId]["movies"];
+      for (let key in movies) {
+        this.userMovies.push(movies[key]);
+      }
     });
   }
 
@@ -52,5 +60,9 @@ export class DataService {
         alert('You already saved this movie/show.');
       }
     });
+  }
+
+  getUserMovies() {
+    return this.userMovies;
   }
 }

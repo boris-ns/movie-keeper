@@ -11,13 +11,19 @@ export class WatchlistComponent implements OnInit {
 
   private imdbLink: string; 
 
+  dataAvailable: boolean = false;
+  private userMovies;
+
   constructor(private dataService: DataService, private authService: AuthService) { 
   }
-
+  
   ngOnInit() {
+    //this.userMovies = this.dataService.getUserMovies()
+    this.userMovies = this.dataService.getUserMovies();
+    console.log(this.userMovies);
   }
 
-  private getIdFromLink(link: string) {
+  private getIdFromLink(link: string): string {
     // Example link https://imdb.com/title/tt2467372/episodes
     const tokens = link.split('/');
     return tokens[4];

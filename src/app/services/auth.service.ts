@@ -34,7 +34,6 @@ export class AuthService {
   signOut() {
     this.firebaseAuth.auth.signOut().then(res => {
       console.log("user signed out");
-      // Go to the homepage: this.router.navigate(['/']);
     });
   }
 

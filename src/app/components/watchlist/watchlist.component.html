@@ -1,4 +1,10 @@
 <div class="add-movie-form">
   <input [(ngModel)]="imdbLink" class="input-field" type="text" placeholder="IMDB link" />
   <input class="button" type="button" value="Add movie" (click)="onClickBtnAddMovie()" />
+
+  <ul class="movies-list">
+    <li *ngFor="let movie of userMovies">
+      {{ movie.Title }}
+    </li>
+  </ul>
 </div>
