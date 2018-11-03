@@ -21,7 +21,7 @@ export class AuthService {
 
       if (user != null) {
         this.dataService.addUserToDb(user);
-      }
+      } 
     });
   }
 
@@ -42,6 +42,6 @@ export class AuthService {
   }
 
   getLoggedInUserId() {
-    return (this.isUserLoggedIn()) ? this.userDbId : null;
+    return (this.isUserLoggedIn()) ? this.userInfo.uid : null;
   }
 }

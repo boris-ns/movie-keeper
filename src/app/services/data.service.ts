@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { resolve } from 'q';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class DataService {
   private apiKey: string;
 
   private userId: string;
+  private userGoogleId: string;
   private userMovies: Array<any>;
 
   constructor(private http: HttpClient, private firebaseDb: AngularFireDatabase) { 
@@ -33,6 +35,7 @@ export class DataService {
     };
 
     const users = this.firebaseDb.database.ref('/users'); 
+    this.userGoogleId = user.uid;
     
     // @TODO: Better place for this kind of stuff is on the backend
     users.orderByChild('googleId').equalTo(newUser.googleId).once('value', snapshot => { 
@@ -41,7 +44,7 @@ export class DataService {
       } else {
         this.userId = Object.keys(snapshot.val())[0];
       }
-      
+
       this.userMovies = new Array();
       const movies = snapshot.val()[this.userId]["movies"];
       for (let key in movies) {
@@ -62,7 +65,12 @@ export class DataService {
     });
   }
 
-  getUserMovies() {
-    return this.userMovies;
+  getLoggedInUserId() {
+    return this.userId;
+  }
+
+  getMoviesFromDb() {
+    const users = this.firebaseDb.database.ref('/users'); 
+    return users.orderByChild('googleId').equalTo(this.userGoogleId).once('value', snapshot => {});
   }
 }

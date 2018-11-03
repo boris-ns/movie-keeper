@@ -12,15 +12,23 @@ export class WatchlistComponent implements OnInit {
   private imdbLink: string; 
 
   dataAvailable: boolean = false;
-  private userMovies;
+  private userMovies: Array<any>;
 
   constructor(private dataService: DataService, private authService: AuthService) { 
   }
   
   ngOnInit() {
-    //this.userMovies = this.dataService.getUserMovies()
-    this.userMovies = this.dataService.getUserMovies();
-    console.log(this.userMovies);
+    this.dataService.getMoviesFromDb().then(snapshot => {
+      const key = Object.keys(snapshot.val())[0];
+      const movies = snapshot.val()[key]["movies"];        
+      this.userMovies = new Array<any>();
+
+      for (let key in movies) {
+        this.userMovies.push(movies[key]);
+      }
+
+      console.log(this.userMovies);
+    });
   }
 
   private getIdFromLink(link: string): string {
@@ -38,6 +46,7 @@ export class WatchlistComponent implements OnInit {
 
     this.dataService.getMovie(movieId).subscribe(movie => {
       this.dataService.addMovieToDb(movie);
+      this.userMovies.push(movie);
     });
   }
 }
