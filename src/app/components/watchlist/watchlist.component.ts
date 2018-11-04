@@ -49,4 +49,14 @@ export class WatchlistComponent implements OnInit {
       this.userMovies.push(movie);
     });
   }
+
+  onClickWatched(movie: any): void {
+    console.log("WATCHED");
+    console.log(movie);
+  }
+
+  onClickRemove(movie: any): void {
+    console.log("REMOVE");
+    console.log(movie);
+  }
 }

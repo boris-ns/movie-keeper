@@ -1,10 +1,31 @@
 <div class="add-movie-form">
-  <input [(ngModel)]="imdbLink" class="input-field" type="text" placeholder="IMDB link" />
-  <input class="button" type="button" value="Add movie" (click)="onClickBtnAddMovie()" />
+  <div class="row">
+    <div class="one-third column">
+      <input [(ngModel)]="imdbLink" class="u-full-width" type="text" placeholder="IMDB link" />
+    </div>
+    
+    <div class="two-thirds column">
+      <input class="button-primary" type="button" value="Add movie" (click)="onClickBtnAddMovie()" />
+    </div>
+  </div>
 
   <ul class="movies-list">
     <li *ngFor="let movie of userMovies">
-      {{ movie.Title }}
+      <img src="{{ movie.Poster }}" />
+      
+      <div class="movie-info">
+        <h5>{{ movie.Title }}</h5>
+        <b>Rating:</b> {{ movie.imdbRating }} / 10 <br />
+        <b>Type:</b> {{ movie.Type }} <br />
+        <b>Genre:</b> {{ movie.Genre }} <br />
+        <b>Year:</b> {{ movie.Year }} <br />
+        <b>Runtime:</b> {{ movie.Runtime }} <br />
+      </div>
+
+      <div class="movie-buttons">
+        <a class="left-btn" (click)="onClickWatched(movie)">Watched</a>
+        <a class="right-btn" (click)="onClickRemove(movie)">Remove</a>
+      </div>
     </li>
   </ul>
 </div>

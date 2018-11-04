@@ -59,6 +59,7 @@ export class DataService {
     movies.orderByChild('imdbID').equalTo(movie.imdbID).once('value', snapshot => {
       if (!snapshot.exists()) {
         movies.push(movie);
+        alert('Movie successfully saved! :)');
       } else {
         alert('You already saved this movie/show.');
       }

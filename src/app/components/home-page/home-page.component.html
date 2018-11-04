@@ -1,11 +1,13 @@
 <div *ngIf="!authService.isUserLoggedIn()">
   <div class="info-text">
+    <br>
     <h1>Your keeper</h1>
+
     <p>Tired of digging through browser bookmarks for your movies watch-list ?</p>
     <p>Bookmark your favourite movies and TV shows.</p>
     <p>Try now for free!</p>
 
-    <input class="button" type="button" value="Login" (click)="onClickBtnLogin()" />
+    <input class="button-primary" type="button" value="Login" (click)="onClickBtnLogin()" />
   </div>
 </div>
 

@@ -1,0 +1,62 @@
+.row {
+    margin: 2.5em;
+}
+
+.movies-list {
+    list-style-type: none;
+}
+
+.movies-list li {
+    display: inline-block;
+    vertical-align: middle;
+    width: 250px;
+    border-radius: 1em;
+    background-color: #e8e8e8;
+    margin: 1em;
+}
+
+.movies-list img {
+    width: 250px;
+    border-radius: 1em;
+}
+
+.movies-list .movie-info {
+    font-size: 14px;
+    padding: 1em;
+}
+
+.movie-buttons {
+    display: inline;
+}
+
+.left-btn {
+    text-decoration: none;
+    color: white;
+    background-color: #33c3f0; 
+    border-bottom-left-radius: 1em;
+    width: 125px;
+    float: left;
+    text-align: center;
+    font-weight: bold;
+}
+
+.left-btn:hover {
+    cursor: pointer;
+    background-color: #1eaedb;
+}
+
+.right-btn {
+    text-decoration: none;
+    color: white;
+    background-color: #33c3f0;
+    border-bottom-right-radius: 1em;
+    width: 125px;
+    float: right;
+    text-align: center;
+    font-weight: bold;
+}
+
+.right-btn:hover {
+    cursor: pointer;
+    background-color: #1eaedb;
+}

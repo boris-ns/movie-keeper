@@ -1,26 +1,25 @@
 .navbar {
-    background-color: #dddddd;
-    height: 2em;
+    background-color: #adadad;
+    height: 2.5em;
 }
 
 .title-link {
-    font-family: cursive;
-    font-size: 1.5em;
+    font-size: 1.7em;
     text-decoration: none;
-    color: #0085d3;
+    color: rgb(0, 0, 0);
     margin-left: 2em;
 }
 
-.button {
+.navbar-btn {
+    background-color: #33c3f0;
+    color: white;
     float: right;
     height: 100%;
     margin-right: 2em;
     border: none;
-    font-size: 1em;
-    font-family: cursive;
 }
 
-.button:hover {
-    cursor: pointer;
-    background-color: #0085d3;
+.navbar-btn:hover {
+    color: white;
+    background-color: #1eaedb;
 }
