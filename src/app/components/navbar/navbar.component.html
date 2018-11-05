@@ -1,9 +1,14 @@
-<div class="navbar">
-  <a href="" class="title-link">Movie Keeper</a>
+<div class="navbar" *ngIf="this.authService.isUserLoggedIn()">
+  <a class="title-link">Movie Keeper</a>
 
-  <input *ngIf="!this.authService.isUserLoggedIn()" class="navbar-btn" 
-          type="button" value="Login with Google" (click)="onClickBtnLogin()" />
-          
-  <input *ngIf="this.authService.isUserLoggedIn()" class="navbar-btn" 
-          type="button" value="Sign out" (click)="onClickBtnSignOut()" />
+  <div class="row">
+    <div class="one-third column">
+      <input [(ngModel)]="imdbLinkInput" class="u-full-width" type="text" placeholder="IMDB link" />
+    </div>
+    
+    <div class="two-thirds column">
+      <input class="button-primary add-movie-btn" type="button" value="Add movie" (click)="onClickBtnAddMovie()" />
+      <input class="navbar-btn" type="button" value="Sign out" (click)="onClickBtnSignOut()" />
+    </div>
+  </div>
 </div>

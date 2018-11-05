@@ -31,8 +31,8 @@
 
 .left-btn {
     text-decoration: none;
-    color: white;
-    background-color: #33c3f0; 
+    color: #212529;
+    background-color: #89d8fd; 
     border-bottom-left-radius: 1em;
     width: 125px;
     float: left;
@@ -42,13 +42,13 @@
 
 .left-btn:hover {
     cursor: pointer;
-    background-color: #1eaedb;
+    background-color: #5ac6f8;
 }
 
 .right-btn {
     text-decoration: none;
     color: white;
-    background-color: #33c3f0;
+    background-color: #f6617a;
     border-bottom-right-radius: 1em;
     width: 125px;
     float: right;
@@ -58,5 +58,5 @@
 
 .right-btn:hover {
     cursor: pointer;
-    background-color: #1eaedb;
+    background-color: #f53756;
 }

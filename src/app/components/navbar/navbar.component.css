@@ -1,13 +1,17 @@
 .navbar {
-    background-color: #adadad;
-    height: 2.5em;
+    background-color: #89d8fd;
 }
 
 .title-link {
-    font-size: 1.7em;
+    font-size: 3em;
+    font-family: 'BlackfatDemo';
     text-decoration: none;
-    color: rgb(0, 0, 0);
+    color: white;
     margin-left: 2em;
+}
+
+.row {
+    margin-left: 1em;
 }
 
 .navbar-btn {

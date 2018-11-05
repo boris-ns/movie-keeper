@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { resolve } from 'q';
@@ -16,6 +16,9 @@ export class DataService {
   private userId: string;
   private userGoogleId: string;
   private userMovies: Array<any>;
+
+  private userMoviesBS = new BehaviorSubject<any>(new Array());
+  castUserMovies = this.userMoviesBS.asObservable();
 
   constructor(private http: HttpClient, private firebaseDb: AngularFireDatabase) { 
     this.endpoint = 'http://www.omdbapi.com/';
@@ -50,6 +53,8 @@ export class DataService {
       for (let key in movies) {
         this.userMovies.push(movies[key]);
       }
+
+      this.userMoviesBS.next(this.userMovies);
     });
   }
 
@@ -59,6 +64,8 @@ export class DataService {
     movies.orderByChild('imdbID').equalTo(movie.imdbID).once('value', snapshot => {
       if (!snapshot.exists()) {
         movies.push(movie);
+        this.userMovies.push(movie);
+        this.userMoviesBS.next(this.userMovies);
         alert('Movie successfully saved! :)');
       } else {
         alert('You already saved this movie/show.');
