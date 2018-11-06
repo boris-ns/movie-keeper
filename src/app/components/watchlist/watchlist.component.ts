@@ -24,7 +24,6 @@ export class WatchlistComponent implements OnInit {
   }
 
   onClickRemove(movie: any): void {
-    console.log("REMOVE");
-    console.log(movie);
+    this.dataService.removeMovieFromDb(movie);
   }
 }

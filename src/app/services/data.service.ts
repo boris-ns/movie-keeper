@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { resolve } from 'q';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +25,10 @@ export class DataService {
     this.userMovies = new Array<any>();
   }
 
+  /**
+   * Searches for movie on OMDB API and returns movie data.
+   * @param movieId - IMDB movie ID that will be searched on OMDB API
+   */
   getMovie(movieId: string) {
     return this.http.get(`${this.endpoint}?apikey=${this.apiKey}&i=${movieId}`);
   }
@@ -51,7 +54,9 @@ export class DataService {
       this.userMovies = new Array();
       const movies = snapshot.val()[this.userId]["movies"];
       for (let key in movies) {
-        this.userMovies.push(movies[key]);
+        let movie = movies[key];
+        movie.firebaseId = key;
+        this.userMovies.push(movie);
       }
 
       this.userMoviesBS.next(this.userMovies);
@@ -65,12 +70,27 @@ export class DataService {
       if (!snapshot.exists()) {
         movies.push(movie);
         this.userMovies.push(movie);
-        this.userMoviesBS.next(this.userMovies);
-        alert('Movie successfully saved! :)');
       } else {
         alert('You already saved this movie/show.');
       }
     });
+  }
+
+  /**
+   * Deletes movie object from database and from local array of movies.
+   * @param movie - movie to delete
+   */
+  removeMovieFromDb(movie: any) {
+    const movies = this.firebaseDb.database.ref(`/users/${this.userId}/movies`);
+    movies.child(movie.firebaseId).remove();
+
+    // Remove from local array
+    for (let i = 0; i < this.userMovies.length; ++i) {
+      if (this.userMovies[i].firebaseId === movie.firebaseId) {
+        this.userMovies.splice(i, 1);
+        break;
+      }
+    }
   }
 
   getLoggedInUserId() {
