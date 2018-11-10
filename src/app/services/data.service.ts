@@ -68,6 +68,7 @@ export class DataService {
 
     movies.orderByChild('imdbID').equalTo(movie.imdbID).once('value', snapshot => {
       if (!snapshot.exists()) {
+        movie.watched = false;
         movies.push(movie);
         this.userMovies.push(movie);
       } else {
@@ -88,6 +89,19 @@ export class DataService {
     for (let i = 0; i < this.userMovies.length; ++i) {
       if (this.userMovies[i].firebaseId === movie.firebaseId) {
         this.userMovies.splice(i, 1);
+        break;
+      }
+    }
+  }
+
+  updateMovieAsWatched(movie: any) {
+    const movies = this.firebaseDb.database.ref(`/users/${this.userId}/movies`);
+    movies.child(movie.firebaseId).update({"watched":true});
+
+    // Update locally
+    for (let i = 0; i < this.userMovies.length; ++i) {
+      if (this.userMovies[i].firebaseId === movie.firebaseId) {
+        this.userMovies[i].watched = true;
         break;
       }
     }

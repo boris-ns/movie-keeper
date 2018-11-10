@@ -11,7 +11,10 @@ export class WatchlistComponent implements OnInit {
   private userMovies: Array<any>;
   private imdbLinkInput: string;
 
-  constructor(private dataService: DataService) { 
+  showToWatchList: boolean;
+
+  constructor(private dataService: DataService) {
+    this.showToWatchList = true; 
   }
   
   ngOnInit() {
@@ -19,11 +22,20 @@ export class WatchlistComponent implements OnInit {
   }
 
   onClickWatched(movie: any): void {
-    console.log("WATCHED");
-    console.log(movie);
+    this.dataService.updateMovieAsWatched(movie);
   }
 
   onClickRemove(movie: any): void {
     this.dataService.removeMovieFromDb(movie);
+  }
+
+  /** Shows list of movies that user wants to watch */
+  onClickBtnToWatchList(): void {
+    this.showToWatchList = true;
+  }
+
+  /** Shows list of movies that user marked as 'Watched' */
+  onClickBtnWatchedList(): void {
+    this.showToWatchList = false;
   }
 }
