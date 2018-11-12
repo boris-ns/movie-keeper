@@ -4,45 +4,40 @@
 <input type="button" value="Watched list" (click)="onClickBtnWatchedList()" />
 
 <ul *ngIf="showToWatchList" class="movies-list">
-  <li *ngFor="let movie of userMovies">
-    <div *ngIf="!movie.watched">
-      <img src="{{ movie.Poster }}" />
-      
-      <div class="movie-info">
-        <h5>{{ movie.Title }}</h5>
-        <b>Rating:</b> {{ movie.imdbRating }} / 10 <br />
-        <b>Type:</b> {{ movie.Type }} <br />
-        <b>Genre:</b> {{ movie.Genre }} <br />
-        <b>Year:</b> {{ movie.Year }} <br />
-        <b>Runtime:</b> {{ movie.Runtime }} <br />
-      </div>
-      
-      <div class="movie-buttons">
-        <a class="left-btn" (click)="onClickWatched(movie)">Watched</a>
-        <a class="right-btn" (click)="onClickRemove(movie)">Remove</a>
-      </div>
+  <li *ngFor="let movie of toWatchMovies">
+    <img src="{{ movie.Poster }}" />
+    
+    <div class="movie-info">
+      <h5>{{ movie.Title }}</h5>
+      <b>Rating:</b> {{ movie.imdbRating }} / 10 <br />
+      <b>Type:</b> {{ movie.Type }} <br />
+      <b>Genre:</b> {{ movie.Genre }} <br />
+      <b>Year:</b> {{ movie.Year }} <br />
+      <b>Runtime:</b> {{ movie.Runtime }} <br />
+    </div>
+    
+    <div class="movie-buttons">
+      <a class="left-btn" (click)="onClickWatched(movie)">Watched</a>
+      <a class="right-btn" (click)="onClickRemove(movie, false)">Remove</a>
     </div>
   </li>
 </ul>
 
 <ul *ngIf="!showToWatchList" class="movies-list">
-  <li *ngFor="let movie of userMovies">
-    <div *ngIf="movie.watched">
-      <img src="{{ movie.Poster }}" />
-      
-      <div class="movie-info">
-        <h5>{{ movie.Title }}</h5>
-        <b>Rating:</b> {{ movie.imdbRating }} / 10 <br />
-        <b>Type:</b> {{ movie.Type }} <br />
-        <b>Genre:</b> {{ movie.Genre }} <br />
-        <b>Year:</b> {{ movie.Year }} <br />
-        <b>Runtime:</b> {{ movie.Runtime }} <br />
-      </div>
-      
-      <div class="movie-buttons">
-        <a class="left-btn" (click)="onClickWatched(movie)">Watched</a>
-        <a class="right-btn" (click)="onClickRemove(movie)">Remove</a>
-      </div>
+  <li *ngFor="let movie of watchedMovies">
+    <img src="{{ movie.Poster }}" />
+    
+    <div class="movie-info">
+      <h5>{{ movie.Title }}</h5>
+      <b>Rating:</b> {{ movie.imdbRating }} / 10 <br />
+      <b>Type:</b> {{ movie.Type }} <br />
+      <b>Genre:</b> {{ movie.Genre }} <br />
+      <b>Year:</b> {{ movie.Year }} <br />
+      <b>Runtime:</b> {{ movie.Runtime }} <br />
+    </div>
+    
+    <div class="movie-buttons">
+      <a class="right-btn" (click)="onClickRemove(movie, true)">Remove</a>
     </div>
   </li>
 </ul>

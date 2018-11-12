@@ -15,14 +15,19 @@ export class DataService {
   private userId: string;
   private userGoogleId: string;
   private userMovies: Array<any>;
+  private watchedUserMovies: Array<any>;
 
   private userMoviesBS = new BehaviorSubject<any>(new Array());
+  private watchedUserMoviesBS = new BehaviorSubject<any>(new Array());
+
   castUserMovies = this.userMoviesBS.asObservable();
+  castWatchedUserMovies = this.watchedUserMoviesBS.asObservable();
 
   constructor(private http: HttpClient, private firebaseDb: AngularFireDatabase) { 
     this.endpoint = 'http://www.omdbapi.com/';
     this.apiKey = environment.omdbApiKey;
     this.userMovies = new Array<any>();
+    this.watchedUserMovies = new Array<any>();
   }
 
   /**
@@ -51,15 +56,18 @@ export class DataService {
         this.userId = Object.keys(snapshot.val())[0];
       }
 
+      // @TODO: refactor this
+
       this.userMovies = new Array();
       const movies = snapshot.val()[this.userId]["movies"];
       for (let key in movies) {
         let movie = movies[key];
         movie.firebaseId = key;
-        this.userMovies.push(movie);
+        (movie.watched) ? this.watchedUserMovies.push(movie) : this.userMovies.push(movie);
       }
 
       this.userMoviesBS.next(this.userMovies);
+      this.watchedUserMoviesBS.next(this.watchedUserMovies);
     });
   }
 
@@ -69,7 +77,8 @@ export class DataService {
     movies.orderByChild('imdbID').equalTo(movie.imdbID).once('value', snapshot => {
       if (!snapshot.exists()) {
         movie.watched = false;
-        movies.push(movie);
+        const key = movies.push(movie).key;
+        movie.firebaseId = key;
         this.userMovies.push(movie);
       } else {
         alert('You already saved this movie/show.');
@@ -81,14 +90,20 @@ export class DataService {
    * Deletes movie object from database and from local array of movies.
    * @param movie - movie to delete
    */
-  removeMovieFromDb(movie: any) {
+  removeMovieFromDb(movie: any, isMovieWatched: boolean) {
     const movies = this.firebaseDb.database.ref(`/users/${this.userId}/movies`);
     movies.child(movie.firebaseId).remove();
 
+
     // Remove from local array
-    for (let i = 0; i < this.userMovies.length; ++i) {
-      if (this.userMovies[i].firebaseId === movie.firebaseId) {
-        this.userMovies.splice(i, 1);
+    (isMovieWatched) ? this.removeMovieFromLocalArray(this.watchedUserMovies, movie)
+                     : this.removeMovieFromLocalArray(this.userMovies, movie);
+  }
+
+  private removeMovieFromLocalArray(movieList: Array<any>, movie: any): void {
+    for (let i = 0; i < movieList.length; ++i) {
+      if (movieList[i].firebaseId === movie.firebaseId) {
+        movieList.splice(i, 1);
         break;
       }
     }
@@ -98,10 +113,12 @@ export class DataService {
     const movies = this.firebaseDb.database.ref(`/users/${this.userId}/movies`);
     movies.child(movie.firebaseId).update({"watched":true});
 
-    // Update locally
+    // Update locally and push movie to 'watched' list
     for (let i = 0; i < this.userMovies.length; ++i) {
       if (this.userMovies[i].firebaseId === movie.firebaseId) {
         this.userMovies[i].watched = true;
+        this.watchedUserMovies.push(this.userMovies[i]);
+        this.userMovies.splice(i, 1);
         break;
       }
     }

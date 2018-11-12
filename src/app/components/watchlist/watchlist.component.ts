@@ -8,7 +8,8 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class WatchlistComponent implements OnInit {
 
-  private userMovies: Array<any>;
+  private toWatchMovies: Array<any>;
+  private watchedMovies: Array<any>;
   private imdbLinkInput: string;
 
   showToWatchList: boolean;
@@ -18,15 +19,16 @@ export class WatchlistComponent implements OnInit {
   }
   
   ngOnInit() {
-    this.dataService.castUserMovies.subscribe(movies => this.userMovies = movies);
+    this.dataService.castUserMovies.subscribe(movies => this.toWatchMovies = movies);
+    this.dataService.castWatchedUserMovies.subscribe(movies => this.watchedMovies = movies);
   }
 
   onClickWatched(movie: any): void {
     this.dataService.updateMovieAsWatched(movie);
   }
 
-  onClickRemove(movie: any): void {
-    this.dataService.removeMovieFromDb(movie);
+  onClickRemove(movie: any, isMovieWatched: boolean): void {
+    this.dataService.removeMovieFromDb(movie, isMovieWatched);
   }
 
   /** Shows list of movies that user wants to watch */
