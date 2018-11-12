@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
+import { SwitchListService } from 'src/app/services/switch-list.service';
 
 @Component({
   selector: 'app-watchlist',
@@ -14,13 +15,17 @@ export class WatchlistComponent implements OnInit {
 
   showToWatchList: boolean;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private switchListService: SwitchListService) {
     this.showToWatchList = true; 
   }
   
   ngOnInit() {
     this.dataService.castUserMovies.subscribe(movies => this.toWatchMovies = movies);
     this.dataService.castWatchedUserMovies.subscribe(movies => this.watchedMovies = movies);
+    
+    this.switchListService.change.subscribe(switchList => {
+      this.showToWatchList = switchList;
+    });
   }
 
   onClickWatched(movie: any): void {

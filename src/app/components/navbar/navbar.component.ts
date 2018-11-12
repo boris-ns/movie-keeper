@@ -2,17 +2,21 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { WatchlistComponent } from '../watchlist/watchlist.component';
 import { DataService } from 'src/app/services/data.service';
+import { SwitchListService } from 'src/app/services/switch-list.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
 
   private imdbLinkInput: string;
 
-  constructor(private authService: AuthService, private dataService: DataService) { }
+  constructor(private authService: AuthService, private dataService: DataService,
+              private switchListService: SwitchListService) { 
+
+  }
 
   ngOnInit() {
   }
@@ -43,5 +47,9 @@ export class NavbarComponent implements OnInit {
       this.dataService.addMovieToDb(movie);
       this.imdbLinkInput = "";
     });
+  }
+
+  onClickBtnShowList() {
+    this.switchListService.switchList();
   }
 }

@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AuthService } from './services/auth.service';
 import { DataService } from './services/data.service';
+import { SwitchListService } from './services/switch-list.service';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { WatchlistComponent } from './components/watchlist/watchlist.component';
 
@@ -36,6 +37,7 @@ import { WatchlistComponent } from './components/watchlist/watchlist.component';
   providers: [
     AuthService,
     DataService,
+    SwitchListService,
   ],
   bootstrap: [AppComponent]
 })
