@@ -1,8 +1,3 @@
-<app-navbar></app-navbar>
-
-<input type="button" value="To-watch list" (click)="onClickBtnToWatchList()" />
-<input type="button" value="Watched list" (click)="onClickBtnWatchedList()" />
-
 <ul *ngIf="showToWatchList" class="movies-list">
   <li *ngFor="let movie of toWatchMovies">
     <img src="{{ movie.Poster }}" />
@@ -36,8 +31,8 @@
       <b>Runtime:</b> {{ movie.Runtime }} <br />
     </div>
     
-    <div class="movie-buttons">
-      <a class="right-btn" (click)="onClickRemove(movie, true)">Remove</a>
+    <div>
+      <a class="remove-btn" (click)="onClickRemove(movie, true)">Remove</a>
     </div>
   </li>
 </ul>

@@ -1,14 +1,21 @@
 <div class="navbar" *ngIf="this.authService.isUserLoggedIn()">
-  <a class="title-link">Movie Keeper</a>
+  <div class="title">
+    <a class="title-link">Movie Keeper</a>
+  </div>
 
   <div class="row">
+    <div class="one-third column">
+      <input type="button" class="button-primary" value="To-watch" (click)="onClickBtnShowList()" />
+      <input type="button" class="button-primary btn-margin" value="Watched" (click)="onClickBtnShowList()" />
+    </div>
+
     <div class="one-third column">
       <input [(ngModel)]="imdbLinkInput" class="u-full-width" type="text" placeholder="IMDB link" />
     </div>
     
-    <div class="two-thirds column">
-      <input class="button-primary add-movie-btn" type="button" value="Add movie" (click)="onClickBtnAddMovie()" />
-      <input class="navbar-btn" type="button" value="Sign out" (click)="onClickBtnSignOut()" />
+    <div class="one-third column">
+      <input class="button-primary" type="button" value="Add movie" (click)="onClickBtnAddMovie()" />
+      <input class="button-primary sign-out" type="button" value="Sign out" (click)="onClickBtnSignOut()" />
     </div>
   </div>
 </div>

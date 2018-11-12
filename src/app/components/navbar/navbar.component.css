@@ -1,5 +1,9 @@
 .navbar {
-    background-color: #89d8fd;
+    background-color: #181D20;
+}
+
+.title {
+    text-align: center;
 }
 
 .title-link {
@@ -11,19 +15,13 @@
 }
 
 .row {
-    margin-left: 1em;
+    margin: 0em 2em 0em 2em;
 }
 
-.navbar-btn {
-    background-color: #33c3f0;
-    color: white;
+.sign-out {
     float: right;
-    height: 100%;
-    margin-right: 2em;
-    border: none;
 }
 
-.navbar-btn:hover {
-    color: white;
-    background-color: #1eaedb;
+.btn-margin {
+    margin-left: 2em;
 }
