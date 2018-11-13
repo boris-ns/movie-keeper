@@ -24,7 +24,7 @@ export class DataService {
   castWatchedUserMovies = this.watchedUserMoviesBS.asObservable();
 
   constructor(private http: HttpClient, private firebaseDb: AngularFireDatabase) { 
-    this.endpoint = 'http://www.omdbapi.com/';
+    this.endpoint = 'https://www.omdbapi.com/';
     this.apiKey = environment.omdbApiKey;
     this.userMovies = new Array<any>();
     this.watchedUserMovies = new Array<any>();
@@ -59,6 +59,7 @@ export class DataService {
       // @TODO: refactor this
 
       this.userMovies = new Array();
+      this.watchedUserMovies = new Array();
       const movies = snapshot.val()[this.userId]["movies"];
       for (let key in movies) {
         let movie = movies[key];

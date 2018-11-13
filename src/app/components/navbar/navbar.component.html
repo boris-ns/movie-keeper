@@ -1,12 +1,12 @@
-<div class="navbar" *ngIf="this.authService.isUserLoggedIn()">
+<div class="navbar">
   <div class="title">
     <a class="title-link">Movie Keeper</a>
   </div>
 
   <div class="row">
     <div class="one-third column">
-      <input type="button" class="button-primary" value="To-watch" (click)="onClickBtnShowList()" />
-      <input type="button" class="button-primary btn-margin" value="Watched" (click)="onClickBtnShowList()" />
+      <input type="button" class="button-primary" value="To-watch" (click)="onClickBtnShowToWatchList()" />
+      <input type="button" class="button-primary btn-margin" value="Watched" (click)="onClickBtnShowWatchedList()" />
     </div>
 
     <div class="one-third column">

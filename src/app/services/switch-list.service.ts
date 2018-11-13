@@ -5,14 +5,11 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 })
 export class SwitchListService {
 
-  showToWatchList = true;
-
   @Output() change: EventEmitter<boolean> = new EventEmitter();
   
   constructor() { }
   
-  switchList() {
-    this.showToWatchList = !this.showToWatchList;
-    this.change.emit(this.showToWatchList);
+  switchList(showToWatchList: boolean): void {
+    this.change.emit(showToWatchList);
   }
 }

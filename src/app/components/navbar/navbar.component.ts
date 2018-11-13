@@ -11,9 +11,9 @@ import { SwitchListService } from 'src/app/services/switch-list.service';
 })
 export class NavbarComponent implements OnInit {
 
-  private imdbLinkInput: string;
+  imdbLinkInput: string;
 
-  constructor(private authService: AuthService, private dataService: DataService,
+  constructor(public authService: AuthService, private dataService: DataService,
               private switchListService: SwitchListService) { 
 
   }
@@ -49,7 +49,11 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  onClickBtnShowList() {
-    this.switchListService.switchList();
+  onClickBtnShowToWatchList() {
+    this.switchListService.switchList(true);
+  }
+
+  onClickBtnShowWatchedList() {
+    this.switchListService.switchList(false);
   }
 }
