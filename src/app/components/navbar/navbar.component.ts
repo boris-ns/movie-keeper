@@ -36,11 +36,16 @@ export class NavbarComponent implements OnInit {
   }
 
   onClickBtnAddMovie() {
-    console.log(this.imdbLinkInput);
+    if (!this.imdbLinkInput) {
+      alert('Please enter IMDB link into the field before trying to add a movie.');
+      return;
+    }
+    
     const movieId = this.getIdFromLink(this.imdbLinkInput);
 
     if (!movieId) {
       alert("Error while parsing IMDB link. Maybe the link is broken.");
+      return;
     }
 
     this.dataService.getMovie(movieId).subscribe(movie => {
